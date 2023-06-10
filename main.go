@@ -19,7 +19,7 @@ func main() {
 	r.GET("/api/panic", func(c *gin.Context) {
 		panic("aaaaaaaaaaaaaa!")
 	})
-	r.Static("/web/dist/hello-gin", "./web/dist/hello-gin")
+	r.Static("/web/dist/hello-gin", "./web/dist/hello-gin") // Serve a static base directory under the given path.
 	// r.GET("", func(c *gin.Context) {
 	// 	c.Redirect(302, "/hello-gin/dist/hello-gin/index.html")
 	// })
@@ -28,6 +28,9 @@ func main() {
 	// r.GET("", func(c *gin.Context) {
 	// 	c.Redirect(302, "/static/index.html")
 	// })
+
+	// All weird routes need a default fallback, per
+	// https://angular.io/guide/deployment#routed-apps-must-fall-back-to-indexhtml
 	r.NoRoute(func(c *gin.Context) {
 		c.Redirect(302, "/web/dist/hello-gin/index.html")
 		// c.Redirect(302, "/")
